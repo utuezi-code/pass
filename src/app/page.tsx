@@ -25,16 +25,16 @@ export default async function Home() {
         </p>
       </div>
 
-      <div className="flex gap-3">
+      <div className="flex w-full max-w-xs flex-col gap-3 sm:w-auto sm:max-w-none sm:flex-row">
         <Link
           href="/register"
-          className="rounded-md bg-foreground px-5 py-2.5 font-medium text-background"
+          className="rounded-md bg-foreground px-5 py-2.5 text-center font-medium text-background"
         >
           Créer un compte
         </Link>
         <Link
           href="/login"
-          className="rounded-md border border-foreground/20 px-5 py-2.5 font-medium"
+          className="rounded-md border border-foreground/20 px-5 py-2.5 text-center font-medium"
         >
           Se connecter
         </Link>

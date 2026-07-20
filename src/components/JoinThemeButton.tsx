@@ -23,7 +23,7 @@ export default function JoinThemeButton({
       <button
         type="button"
         onClick={() => router.push("/dashboard")}
-        className="rounded-md bg-orange-500 px-4 py-2 text-sm font-medium text-white"
+        className="w-full whitespace-nowrap rounded-md bg-orange-500 px-4 py-2 text-sm font-medium text-white sm:w-auto"
       >
         Voir mon cercle
       </button>
@@ -32,7 +32,7 @@ export default function JoinThemeButton({
 
   if (joined) {
     return (
-      <span className="rounded-md border border-foreground/20 px-4 py-2 text-sm text-foreground/60">
+      <span className="block w-full whitespace-nowrap rounded-md border border-foreground/20 px-4 py-2 text-center text-sm text-foreground/60 sm:w-auto">
         En attente…
       </span>
     );
@@ -64,12 +64,12 @@ export default function JoinThemeButton({
   }
 
   return (
-    <div className="flex flex-col items-end gap-1">
+    <div className="flex flex-col items-stretch gap-1 sm:items-end">
       <button
         type="button"
         onClick={handleJoin}
         disabled={isPending}
-        className="rounded-md bg-foreground px-4 py-2 text-sm font-medium text-background disabled:opacity-50"
+        className="w-full whitespace-nowrap rounded-md bg-foreground px-4 py-2 text-sm font-medium text-background disabled:opacity-50 sm:w-auto"
       >
         {isPending ? "…" : "Rejoindre"}
       </button>

@@ -68,82 +68,84 @@ export default async function ThemesPage({
   return (
     <div>
       <AppHeader />
-      <div className="mx-auto max-w-2xl p-8">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-semibold">Thèmes</h1>
-          <p className="mt-1 text-foreground/60">
-            Rejoignez un thème avant sa date. Dès que 8 personnes sont réunies, un cercle se
-            forme.
-          </p>
+      <div className="mx-auto max-w-2xl p-4 sm:p-8">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <h1 className="text-2xl font-semibold">Thèmes</h1>
+            <p className="mt-1 text-foreground/60">
+              Rejoignez un thème avant sa date. Dès que 8 personnes sont réunies, un cercle se
+              forme.
+            </p>
+          </div>
+          <Link
+            href="/themes/new"
+            className="shrink-0 rounded-md bg-foreground px-4 py-2 text-center text-sm font-medium text-background"
+          >
+            Proposer un thème
+          </Link>
         </div>
-        <Link
-          href="/themes/new"
-          className="shrink-0 rounded-md bg-foreground px-4 py-2 text-sm font-medium text-background"
-        >
-          Proposer un thème
-        </Link>
-      </div>
 
-      <div className="mt-6">
-        <ThemeFilters categories={categories ?? []} />
-      </div>
+        <div className="mt-6">
+          <ThemeFilters categories={categories ?? []} />
+        </div>
 
-      <div className="mt-8 flex flex-col gap-10">
-        {(categories ?? []).map((cat) => {
-          const categoryThemes = themesByCategory.get(cat.id) ?? [];
-          if (categoryThemes.length === 0) return null;
+        <div className="mt-8 flex flex-col gap-10">
+          {(categories ?? []).map((cat) => {
+            const categoryThemes = themesByCategory.get(cat.id) ?? [];
+            if (categoryThemes.length === 0) return null;
 
-          return (
-            <section key={cat.id}>
-              <h2 className="mb-3 text-lg font-medium">
-                {cat.emoji} {cat.title}
-              </h2>
-              <ul className="flex flex-col gap-3">
-                {categoryThemes.map((theme) => {
-                  const registration = registrationByTheme.get(theme.id);
-                  return (
-                    <li
-                      key={theme.id}
-                      className="flex items-center justify-between gap-4 rounded-lg border border-foreground/10 p-4"
-                    >
-                      <div className="flex items-center gap-4">
-                        <EmberRing
-                          themeId={theme.id}
-                          capacity={theme.capacity}
-                          initialCount={countByTheme.get(theme.id) ?? 0}
-                        />
-                        <div>
-                          <p className="font-medium">{theme.title}</p>
-                          <p className="text-sm text-foreground/60">{theme.description}</p>
-                          <p className="mt-1 text-xs text-foreground/50">
-                            {formatDate(theme.scheduled_at)}
-                          </p>
+            return (
+              <section key={cat.id}>
+                <h2 className="mb-3 text-lg font-medium">
+                  {cat.emoji} {cat.title}
+                </h2>
+                <ul className="flex flex-col gap-3">
+                  {categoryThemes.map((theme) => {
+                    const registration = registrationByTheme.get(theme.id);
+                    return (
+                      <li
+                        key={theme.id}
+                        className="flex flex-col gap-4 rounded-lg border border-foreground/10 p-4 sm:flex-row sm:items-center sm:justify-between"
+                      >
+                        <div className="flex items-center gap-4">
+                          <EmberRing
+                            themeId={theme.id}
+                            capacity={theme.capacity}
+                            initialCount={countByTheme.get(theme.id) ?? 0}
+                          />
+                          <div className="min-w-0">
+                            <p className="font-medium break-words">{theme.title}</p>
+                            <p className="text-sm text-foreground/60 break-words">
+                              {theme.description}
+                            </p>
+                            <p className="mt-1 text-xs text-foreground/50">
+                              {formatDate(theme.scheduled_at)}
+                            </p>
+                          </div>
                         </div>
-                      </div>
-                      <JoinThemeButton
-                        themeId={theme.id}
-                        alreadyJoined={!!registration}
-                        matched={!!registration?.circle_id}
-                      />
-                    </li>
-                  );
-                })}
-              </ul>
-            </section>
-          );
-        })}
+                        <JoinThemeButton
+                          themeId={theme.id}
+                          alreadyJoined={!!registration}
+                          matched={!!registration?.circle_id}
+                        />
+                      </li>
+                    );
+                  })}
+                </ul>
+              </section>
+            );
+          })}
 
-        {(themes ?? []).length === 0 && (
-          <p className="text-foreground/60">
-            Aucun thème ne correspond.{" "}
-            <Link href="/themes/new" className="underline">
-              Proposez-en un
-            </Link>
-            .
-          </p>
-        )}
-      </div>
+          {(themes ?? []).length === 0 && (
+            <p className="text-foreground/60">
+              Aucun thème ne correspond.{" "}
+              <Link href="/themes/new" className="underline">
+                Proposez-en un
+              </Link>
+              .
+            </p>
+          )}
+        </div>
       </div>
     </div>
   );

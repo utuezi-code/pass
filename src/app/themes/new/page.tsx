@@ -13,7 +13,7 @@ export default async function NewThemePage() {
   return (
     <div>
       <AppHeader />
-      <div className="mx-auto max-w-md p-8">
+      <div className="mx-auto max-w-md p-4 sm:p-8">
         <h1 className="text-2xl font-semibold">Proposer un thème</h1>
         <p className="mt-1 text-foreground/60">
           Choisissez une catégorie, décrivez votre sujet et fixez une date d&apos;échange. Le

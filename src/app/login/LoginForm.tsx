@@ -10,7 +10,7 @@ export default function LoginForm({ next }: { next: string }) {
   const [state, formAction, isPending] = useActionState(loginAction, initialState);
 
   return (
-    <div className="mx-auto flex min-h-screen max-w-md flex-col justify-center gap-6 p-8">
+    <div className="mx-auto flex min-h-screen max-w-md flex-col justify-center gap-6 p-4 sm:p-8">
       <div>
         <h1 className="text-2xl font-semibold">Se connecter</h1>
       </div>

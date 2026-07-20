@@ -14,7 +14,7 @@ export default function RegisterPage() {
 
   if (state.checkEmail) {
     return (
-      <div className="mx-auto flex min-h-screen max-w-md flex-col justify-center gap-4 p-8 text-center">
+      <div className="mx-auto flex min-h-screen max-w-md flex-col justify-center gap-4 p-4 text-center sm:p-8">
         <h1 className="text-2xl font-semibold">Vérifiez votre email</h1>
         <p className="text-foreground/70">
           Un lien de confirmation vous a été envoyé. Cliquez dessus pour activer votre
@@ -25,7 +25,7 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="mx-auto flex min-h-screen max-w-md flex-col justify-center gap-6 p-8">
+    <div className="mx-auto flex min-h-screen max-w-md flex-col justify-center gap-6 p-4 sm:p-8">
       <div>
         <h1 className="text-2xl font-semibold">Créer un compte</h1>
         <p className="text-foreground/60">Rejoignez un cercle en quelques secondes.</p>
