@@ -1,8 +1,10 @@
 import Link from "next/link";
+import AuthErrorBanner from "@/components/AuthErrorBanner";
 
 export default function Home() {
   return (
     <div className="flex flex-1 flex-col items-center justify-center gap-8 p-8 text-center">
+      <AuthErrorBanner />
       <div className="flex flex-col gap-3">
         <span className="text-5xl">🔥</span>
         <h1 className="text-4xl font-semibold tracking-tight">Cercle</h1>

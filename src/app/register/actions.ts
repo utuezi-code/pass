@@ -1,6 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
+import { headers } from "next/headers";
 import { registerSchema } from "@/lib/validation";
 import { createClient } from "@/lib/supabase/server";
 
@@ -27,11 +28,16 @@ export async function registerAction(
   const { fullName, email, password, whatsappNumber } = parsed.data;
   const supabase = await createClient();
 
+  const requestHeaders = await headers();
+  const host = requestHeaders.get("host");
+  const protocol = host?.startsWith("localhost") ? "http" : "https";
+
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
     options: {
       data: { full_name: fullName, whatsapp_number: whatsappNumber },
+      emailRedirectTo: `${protocol}://${host}/auth/callback`,
     },
   });
 
