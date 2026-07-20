@@ -66,6 +66,7 @@ export default function RegisterPage() {
             minLength={8}
             className={inputClass}
           />
+          <p className="text-xs text-neutral-500">8 caractères minimum.</p>
         </div>
 
         <div className="flex flex-col gap-1.5">
@@ -80,6 +81,9 @@ export default function RegisterPage() {
             className={`phone-input-dark ${inputClass}`}
           />
           <input type="hidden" name="whatsappNumber" value={phone ?? ""} />
+          <p className="text-xs text-neutral-500">
+            Pour vous prévenir dès que votre cercle est complet.
+          </p>
         </div>
 
         {state.error && <p className="text-sm text-red-400">{state.error}</p>}

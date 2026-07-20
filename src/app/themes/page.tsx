@@ -65,6 +65,8 @@ export default async function ThemesPage({
     themesByCategory.set(theme.category_id, list);
   }
 
+  const hasFilters = !!category || !!keyword;
+
   return (
     <div>
       <AppHeader />
@@ -78,7 +80,7 @@ export default async function ThemesPage({
             </p>
           </div>
           <Link
-            href="/themes/new"
+            href={user ? "/themes/new" : "/login?next=/themes/new"}
             className="shrink-0 rounded-full bg-gradient-to-r from-orange-500 to-red-500 px-5 py-2.5 text-center text-sm font-semibold text-white shadow-lg shadow-orange-900/30 transition hover:shadow-orange-900/50"
           >
             Proposer un thème
@@ -92,56 +94,72 @@ export default async function ThemesPage({
         <div className="mt-8 flex flex-col gap-10">
           {(categories ?? []).map((cat) => {
             const categoryThemes = themesByCategory.get(cat.id) ?? [];
-            if (categoryThemes.length === 0) return null;
+            // Sous filtre actif, on ne montre que les catégories avec des résultats.
+            // Sans filtre, on garde toutes les catégories visibles (avec une invitation
+            // à proposer) pour que le site ne paraisse jamais vide.
+            if (categoryThemes.length === 0 && hasFilters) return null;
 
             return (
               <section key={cat.id}>
                 <h2 className="mb-3 flex items-center gap-2 text-lg font-semibold text-neutral-50">
                   <span>{cat.emoji}</span> {cat.title}
                 </h2>
-                <ul className="flex flex-col gap-3">
-                  {categoryThemes.map((theme) => {
-                    const registration = registrationByTheme.get(theme.id);
-                    return (
-                      <li
-                        key={theme.id}
-                        className="flex flex-col gap-4 rounded-2xl border border-white/10 bg-white/[0.03] p-4 transition hover:border-white/20 sm:flex-row sm:items-center sm:justify-between"
-                      >
-                        <div className="flex items-center gap-4">
-                          <EmberRing
-                            themeId={theme.id}
-                            capacity={theme.capacity}
-                            initialCount={countByTheme.get(theme.id) ?? 0}
-                          />
-                          <div className="min-w-0">
-                            <p className="font-medium break-words text-neutral-50">
-                              {theme.title}
-                            </p>
-                            <p className="text-sm text-neutral-400 break-words">
-                              {theme.description}
-                            </p>
-                            <p className="mt-1 text-xs text-neutral-500">
-                              {formatDate(theme.scheduled_at)}
-                            </p>
+                {categoryThemes.length === 0 ? (
+                  <Link
+                    href={user ? "/themes/new" : "/login?next=/themes/new"}
+                    className="block rounded-2xl border border-dashed border-white/10 p-4 text-sm text-neutral-500 transition hover:border-orange-500/40 hover:text-orange-400"
+                  >
+                    Aucun thème ici pour l&apos;instant — soyez le premier à en proposer un →
+                  </Link>
+                ) : (
+                  <ul className="flex flex-col gap-3">
+                    {categoryThemes.map((theme) => {
+                      const registration = registrationByTheme.get(theme.id);
+                      return (
+                        <li
+                          key={theme.id}
+                          className="flex flex-col gap-4 rounded-2xl border border-white/10 bg-white/[0.03] p-4 transition hover:border-white/20 sm:flex-row sm:items-center sm:justify-between"
+                        >
+                          <div className="flex items-center gap-4">
+                            <EmberRing
+                              themeId={theme.id}
+                              capacity={theme.capacity}
+                              initialCount={countByTheme.get(theme.id) ?? 0}
+                            />
+                            <div className="min-w-0">
+                              <p className="font-medium break-words text-neutral-50">
+                                {theme.title}
+                              </p>
+                              <p className="text-sm text-neutral-400 break-words">
+                                {theme.description}
+                              </p>
+                              <p className="mt-1 text-xs text-neutral-500">
+                                {formatDate(theme.scheduled_at)}
+                              </p>
+                            </div>
                           </div>
-                        </div>
-                        <JoinThemeButton
-                          themeId={theme.id}
-                          alreadyJoined={!!registration}
-                          matched={!!registration?.circle_id}
-                        />
-                      </li>
-                    );
-                  })}
-                </ul>
+                          <JoinThemeButton
+                            themeId={theme.id}
+                            alreadyJoined={!!registration}
+                            matched={!!registration?.circle_id}
+                            isAuthenticated={!!user}
+                          />
+                        </li>
+                      );
+                    })}
+                  </ul>
+                )}
               </section>
             );
           })}
 
-          {(themes ?? []).length === 0 && (
+          {hasFilters && (themes ?? []).length === 0 && (
             <p className="text-neutral-400">
               Aucun thème ne correspond.{" "}
-              <Link href="/themes/new" className="text-orange-400 hover:underline">
+              <Link
+                href={user ? "/themes/new" : "/login?next=/themes/new"}
+                className="text-orange-400 hover:underline"
+              >
                 Proposez-en un
               </Link>
               .

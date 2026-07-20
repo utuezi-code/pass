@@ -2,16 +2,19 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 
 export default function JoinThemeButton({
   themeId,
   alreadyJoined,
   matched,
+  isAuthenticated,
 }: {
   themeId: string;
   alreadyJoined: boolean;
   matched: boolean;
+  isAuthenticated: boolean;
 }) {
   const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -35,6 +38,17 @@ export default function JoinThemeButton({
       <span className="block w-full whitespace-nowrap rounded-full border border-white/10 px-4 py-2 text-center text-sm text-neutral-400 sm:w-auto">
         En attente…
       </span>
+    );
+  }
+
+  if (!isAuthenticated) {
+    return (
+      <Link
+        href={`/login?next=/themes`}
+        className="block w-full whitespace-nowrap rounded-full border border-white/15 px-4 py-2 text-center text-sm font-semibold text-neutral-50 transition hover:border-orange-500 hover:text-orange-400 sm:w-auto"
+      >
+        Se connecter pour rejoindre
+      </Link>
     );
   }
 

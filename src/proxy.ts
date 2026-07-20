@@ -1,7 +1,10 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
-const PROTECTED_PATHS = ["/dashboard", "/themes"];
+// /themes reste public (lecture publique en RLS, cf. spec) : un visiteur doit
+// pouvoir voir ce qu'il y a sur le site avant de créer un compte. Seules les
+// actions qui engagent réellement (proposer, dashboard) exigent une session.
+const PROTECTED_PATHS = ["/dashboard", "/themes/new"];
 
 export async function proxy(request: NextRequest) {
   let response = NextResponse.next({ request });

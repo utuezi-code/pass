@@ -81,6 +81,20 @@ export default function Hero() {
         </motion.div>
 
         <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.7, delay: 0.7 }}
+          className="mt-5"
+        >
+          <Link
+            href="/themes"
+            className="text-sm font-medium text-neutral-400 underline-offset-4 transition hover:text-orange-400 hover:underline"
+          >
+            Voir les thèmes en direct, sans compte →
+          </Link>
+        </motion.div>
+
+        <motion.div
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
           className="mt-16 text-neutral-500"
