@@ -71,15 +71,15 @@ export default async function ThemesPage({
       <div className="mx-auto max-w-2xl p-4 sm:p-8">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h1 className="text-2xl font-semibold">Thèmes</h1>
-            <p className="mt-1 text-foreground/60">
+            <h1 className="text-2xl font-bold text-neutral-50">Thèmes</h1>
+            <p className="mt-1 text-neutral-400">
               Rejoignez un thème avant sa date. Dès que 8 personnes sont réunies, un cercle se
               forme.
             </p>
           </div>
           <Link
             href="/themes/new"
-            className="shrink-0 rounded-md bg-foreground px-4 py-2 text-center text-sm font-medium text-background"
+            className="shrink-0 rounded-full bg-gradient-to-r from-orange-500 to-red-500 px-5 py-2.5 text-center text-sm font-semibold text-white shadow-lg shadow-orange-900/30 transition hover:shadow-orange-900/50"
           >
             Proposer un thème
           </Link>
@@ -96,8 +96,8 @@ export default async function ThemesPage({
 
             return (
               <section key={cat.id}>
-                <h2 className="mb-3 text-lg font-medium">
-                  {cat.emoji} {cat.title}
+                <h2 className="mb-3 flex items-center gap-2 text-lg font-semibold text-neutral-50">
+                  <span>{cat.emoji}</span> {cat.title}
                 </h2>
                 <ul className="flex flex-col gap-3">
                   {categoryThemes.map((theme) => {
@@ -105,7 +105,7 @@ export default async function ThemesPage({
                     return (
                       <li
                         key={theme.id}
-                        className="flex flex-col gap-4 rounded-lg border border-foreground/10 p-4 sm:flex-row sm:items-center sm:justify-between"
+                        className="flex flex-col gap-4 rounded-2xl border border-white/10 bg-white/[0.03] p-4 transition hover:border-white/20 sm:flex-row sm:items-center sm:justify-between"
                       >
                         <div className="flex items-center gap-4">
                           <EmberRing
@@ -114,11 +114,13 @@ export default async function ThemesPage({
                             initialCount={countByTheme.get(theme.id) ?? 0}
                           />
                           <div className="min-w-0">
-                            <p className="font-medium break-words">{theme.title}</p>
-                            <p className="text-sm text-foreground/60 break-words">
+                            <p className="font-medium break-words text-neutral-50">
+                              {theme.title}
+                            </p>
+                            <p className="text-sm text-neutral-400 break-words">
                               {theme.description}
                             </p>
-                            <p className="mt-1 text-xs text-foreground/50">
+                            <p className="mt-1 text-xs text-neutral-500">
                               {formatDate(theme.scheduled_at)}
                             </p>
                           </div>
@@ -137,9 +139,9 @@ export default async function ThemesPage({
           })}
 
           {(themes ?? []).length === 0 && (
-            <p className="text-foreground/60">
+            <p className="text-neutral-400">
               Aucun thème ne correspond.{" "}
-              <Link href="/themes/new" className="underline">
+              <Link href="/themes/new" className="text-orange-400 hover:underline">
                 Proposez-en un
               </Link>
               .

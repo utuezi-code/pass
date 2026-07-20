@@ -29,7 +29,7 @@ export default function ThemeFilters({
       <select
         value={searchParams.get("category") ?? ""}
         onChange={(e) => updateParams({ category: e.target.value })}
-        className="rounded-md border border-foreground/20 bg-transparent px-3 py-2 text-sm"
+        className="rounded-lg border border-white/10 bg-neutral-900 px-3 py-2 text-sm text-neutral-50 outline-none transition focus:border-orange-500"
       >
         <option value="">Toutes les catégories</option>
         {categories.map((c) => (
@@ -48,7 +48,7 @@ export default function ThemeFilters({
           if (debounceRef.current) clearTimeout(debounceRef.current);
           debounceRef.current = setTimeout(() => updateParams({ q: value }), 300);
         }}
-        className="flex-1 rounded-md border border-foreground/20 bg-transparent px-3 py-2 text-sm"
+        className="flex-1 rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm text-neutral-50 placeholder:text-neutral-500 outline-none transition focus:border-orange-500"
       />
     </div>
   );
