@@ -1,4 +1,4 @@
-# Cercle
+# Wiclos
 
 Un utilisateur s'inscrit sur un thème. Dès que 8 personnes ont rejoint le
 même thème, le système forme automatiquement un cercle, génère un lien de

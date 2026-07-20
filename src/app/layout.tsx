@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Cercle",
+  title: "Wiclos",
   description: "Rejoignez un thème, formez un cercle de 8 personnes.",
 };
 

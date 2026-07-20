@@ -35,7 +35,7 @@ export default function Hero() {
           transition={{ duration: 0.7, delay: 0.1 }}
           className="mt-4 bg-gradient-to-br from-orange-300 via-orange-400 to-red-500 bg-clip-text text-5xl font-bold tracking-tight text-transparent sm:text-7xl"
         >
-          Cercle
+          Wiclos
         </motion.h1>
 
         <motion.p
