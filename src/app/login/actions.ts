@@ -22,10 +22,34 @@ export async function loginAction(
   }
 
   const supabase = await createClient();
-  const { error } = await supabase.auth.signInWithPassword(parsed.data);
+  const { data, error } = await supabase.auth.signInWithPassword(parsed.data);
 
   if (error) {
     return { error: "Email ou mot de passe incorrect." };
+  }
+
+  // Filet de sécurité : si la création du profil a échoué au moment de la
+  // confirmation email (ex: redirect_to pas encore autorisé côté Supabase),
+  // on la retente ici à partir des métadonnées enregistrées à l'inscription.
+  const { data: existingProfile } = await supabase
+    .from("profiles")
+    .select("id")
+    .eq("id", data.user.id)
+    .maybeSingle();
+
+  if (!existingProfile) {
+    const metadata = data.user.user_metadata as {
+      full_name?: string;
+      whatsapp_number?: string;
+    };
+
+    if (metadata.full_name && metadata.whatsapp_number) {
+      await supabase.from("profiles").insert({
+        id: data.user.id,
+        full_name: metadata.full_name,
+        whatsapp_number: metadata.whatsapp_number,
+      });
+    }
   }
 
   const next = formData.get("next");
