@@ -2,6 +2,7 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import EmberRing from "@/components/EmberRing";
 import JoinThemeButton from "@/components/JoinThemeButton";
+import ThemeFilters from "@/components/ThemeFilters";
 
 function formatDate(iso: string) {
   return new Date(iso).toLocaleString("fr-FR", {
@@ -12,21 +13,42 @@ function formatDate(iso: string) {
   });
 }
 
-export default async function ThemesPage() {
+// Échappe les caractères qui casseraient la syntaxe de filtre PostgREST (.or())
+function sanitizeSearch(q: string) {
+  return q.replace(/[,()%_]/g, " ").trim().slice(0, 100);
+}
+
+export default async function ThemesPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ category?: string; q?: string }>;
+}) {
+  const { category, q } = await searchParams;
   const supabase = await createClient();
 
   const {
     data: { user },
   } = await supabase.auth.getUser();
 
+  let themesQuery = supabase
+    .from("themes")
+    .select("id, title, description, scheduled_at, capacity, status, category_id")
+    .in("status", ["open", "confirmed"])
+    .order("scheduled_at", { ascending: true });
+
+  if (category) {
+    themesQuery = themesQuery.eq("category_id", category);
+  }
+
+  const keyword = q ? sanitizeSearch(q) : "";
+  if (keyword) {
+    themesQuery = themesQuery.or(`title.ilike.%${keyword}%,description.ilike.%${keyword}%`);
+  }
+
   const [{ data: categories }, { data: themes }, { data: counts }, { data: myRegistrations }] =
     await Promise.all([
       supabase.from("categories").select("*").eq("active", true).order("title"),
-      supabase
-        .from("themes")
-        .select("id, title, description, scheduled_at, capacity, status, category_id")
-        .in("status", ["open", "confirmed"])
-        .order("scheduled_at", { ascending: true }),
+      themesQuery,
       supabase.from("theme_counts").select("theme_id, waiting_count"),
       user
         ? supabase.from("registrations").select("theme_id, circle_id").eq("user_id", user.id)
@@ -60,15 +82,19 @@ export default async function ThemesPage() {
         </Link>
       </div>
 
+      <div className="mt-6">
+        <ThemeFilters categories={categories ?? []} />
+      </div>
+
       <div className="mt-8 flex flex-col gap-10">
-        {(categories ?? []).map((category) => {
-          const categoryThemes = themesByCategory.get(category.id) ?? [];
+        {(categories ?? []).map((cat) => {
+          const categoryThemes = themesByCategory.get(cat.id) ?? [];
           if (categoryThemes.length === 0) return null;
 
           return (
-            <section key={category.id}>
+            <section key={cat.id}>
               <h2 className="mb-3 text-lg font-medium">
-                {category.emoji} {category.title}
+                {cat.emoji} {cat.title}
               </h2>
               <ul className="flex flex-col gap-3">
                 {categoryThemes.map((theme) => {
@@ -107,9 +133,9 @@ export default async function ThemesPage() {
 
         {(themes ?? []).length === 0 && (
           <p className="text-foreground/60">
-            Aucun thème pour l&apos;instant.{" "}
+            Aucun thème ne correspond.{" "}
             <Link href="/themes/new" className="underline">
-              Proposez le premier
+              Proposez-en un
             </Link>
             .
           </p>
