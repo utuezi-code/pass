@@ -27,7 +27,7 @@ export type Database = {
         Update: Partial<Database["public"]["Tables"]["profiles"]["Insert"]>;
         Relationships: Relationship[];
       };
-      themes: {
+      categories: {
         Row: {
           id: string;
           slug: string;
@@ -37,9 +37,50 @@ export type Database = {
           active: boolean;
           created_at: string;
         };
-        Insert: Partial<Database["public"]["Tables"]["themes"]["Row"]>;
-        Update: Partial<Database["public"]["Tables"]["themes"]["Row"]>;
+        Insert: Partial<Database["public"]["Tables"]["categories"]["Row"]>;
+        Update: Partial<Database["public"]["Tables"]["categories"]["Row"]>;
         Relationships: Relationship[];
+      };
+      themes: {
+        Row: {
+          id: string;
+          category_id: string;
+          creator_id: string;
+          title: string;
+          description: string;
+          scheduled_at: string;
+          capacity: number;
+          status: "open" | "confirmed" | "cancelled" | "completed";
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          category_id: string;
+          creator_id: string;
+          title: string;
+          description: string;
+          scheduled_at: string;
+          capacity?: number;
+          status?: "open" | "confirmed" | "cancelled" | "completed";
+          created_at?: string;
+        };
+        Update: Partial<Database["public"]["Tables"]["themes"]["Insert"]>;
+        Relationships: [
+          {
+            foreignKeyName: "themes_category_id_fkey";
+            columns: ["category_id"];
+            isOneToOne: false;
+            referencedRelation: "categories";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "themes_creator_id_fkey";
+            columns: ["creator_id"];
+            isOneToOne: false;
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          },
+        ];
       };
       circles: {
         Row: {

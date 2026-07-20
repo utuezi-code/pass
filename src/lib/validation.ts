@@ -26,3 +26,14 @@ export const joinThemeSchema = z.object({
   themeId: z.uuid(),
 });
 export type JoinThemeInput = z.infer<typeof joinThemeSchema>;
+
+export const createThemeSchema = z.object({
+  categoryId: z.uuid("Choisissez une catégorie"),
+  title: z.string().trim().min(3, "Titre trop court").max(120),
+  description: z.string().trim().min(10, "Décrivez un peu plus le sujet").max(1000),
+  scheduledAt: z
+    .string()
+    .refine((v) => !Number.isNaN(Date.parse(v)), "Date invalide")
+    .refine((v) => new Date(v).getTime() > Date.now(), "La date doit être dans le futur"),
+});
+export type CreateThemeInput = z.infer<typeof createThemeSchema>;
