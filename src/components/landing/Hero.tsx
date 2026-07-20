@@ -90,7 +90,7 @@ export default function Hero() {
             href="/themes"
             className="text-sm font-medium text-neutral-400 underline-offset-4 transition hover:text-orange-400 hover:underline"
           >
-            Voir les thèmes en direct, sans compte →
+            Voir les thèmes en direct →
           </Link>
         </motion.div>
 
