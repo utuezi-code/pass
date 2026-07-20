@@ -12,7 +12,7 @@ export default async function AppHeader() {
     <header className="sticky top-0 z-20 border-b border-white/10 bg-neutral-950/80 backdrop-blur">
       <div className="mx-auto flex max-w-2xl flex-wrap items-center justify-between gap-x-4 gap-y-2 px-4 py-3 text-sm sm:px-8">
         <nav className="flex flex-wrap items-center gap-x-5 gap-y-1">
-          <Link href="/themes" className="flex items-center gap-1.5 font-bold text-neutral-50">
+          <Link href="/" className="flex items-center gap-1.5 font-bold text-neutral-50">
             <span>🔥</span> Wiclos
           </Link>
           <Link href="/themes" className="text-neutral-400 transition hover:text-orange-400">
