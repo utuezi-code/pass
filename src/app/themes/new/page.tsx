@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
+import AppHeader from "@/components/AppHeader";
 import NewThemeForm from "./NewThemeForm";
 
 export default async function NewThemePage() {
@@ -10,15 +11,18 @@ export default async function NewThemePage() {
     .order("title");
 
   return (
-    <div className="mx-auto max-w-md p-8">
-      <h1 className="text-2xl font-semibold">Proposer un thème</h1>
-      <p className="mt-1 text-foreground/60">
-        Choisissez une catégorie, décrivez votre sujet et fixez une date d&apos;échange.
-        Le cercle se forme dès que 8 personnes vous ont rejoint avant cette date.
-      </p>
+    <div>
+      <AppHeader />
+      <div className="mx-auto max-w-md p-8">
+        <h1 className="text-2xl font-semibold">Proposer un thème</h1>
+        <p className="mt-1 text-foreground/60">
+          Choisissez une catégorie, décrivez votre sujet et fixez une date d&apos;échange. Le
+          cercle se forme dès que 8 personnes vous ont rejoint avant cette date.
+        </p>
 
-      <div className="mt-8">
-        <NewThemeForm categories={categories ?? []} />
+        <div className="mt-8">
+          <NewThemeForm categories={categories ?? []} />
+        </div>
       </div>
     </div>
   );

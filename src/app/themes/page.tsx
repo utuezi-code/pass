@@ -3,6 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import EmberRing from "@/components/EmberRing";
 import JoinThemeButton from "@/components/JoinThemeButton";
 import ThemeFilters from "@/components/ThemeFilters";
+import AppHeader from "@/components/AppHeader";
 
 function formatDate(iso: string) {
   return new Date(iso).toLocaleString("fr-FR", {
@@ -65,7 +66,9 @@ export default async function ThemesPage({
   }
 
   return (
-    <div className="mx-auto max-w-2xl p-8">
+    <div>
+      <AppHeader />
+      <div className="mx-auto max-w-2xl p-8">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-semibold">Thèmes</h1>
@@ -140,6 +143,7 @@ export default async function ThemesPage({
             .
           </p>
         )}
+      </div>
       </div>
     </div>
   );

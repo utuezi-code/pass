@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
-import { logoutAction } from "@/app/logout/actions";
+import AppHeader from "@/components/AppHeader";
 
 function formatDate(iso: string) {
   return new Date(iso).toLocaleString("fr-FR", {
@@ -34,15 +34,10 @@ export default async function DashboardPage() {
   ]);
 
   return (
-    <div className="mx-auto max-w-2xl p-8">
-      <div className="flex items-center justify-between">
+    <div>
+      <AppHeader />
+      <div className="mx-auto max-w-2xl p-8">
         <h1 className="text-2xl font-semibold">Mon tableau de bord</h1>
-        <form action={logoutAction}>
-          <button type="submit" className="text-sm text-foreground/60 underline">
-            Se déconnecter
-          </button>
-        </form>
-      </div>
 
       <section className="mt-8">
         <h2 className="mb-3 text-lg font-medium">Mes inscriptions</h2>
@@ -85,32 +80,33 @@ export default async function DashboardPage() {
         </ul>
       </section>
 
-      <section className="mt-10">
-        <h2 className="mb-3 text-lg font-medium">Mes thèmes proposés</h2>
+        <section className="mt-10">
+          <h2 className="mb-3 text-lg font-medium">Mes thèmes proposés</h2>
 
-        {(!myThemes || myThemes.length === 0) && (
-          <p className="text-foreground/60">
-            Vous n&apos;avez proposé aucun thème.{" "}
-            <Link href="/themes/new" className="underline">
-              En proposer un
-            </Link>
-            .
-          </p>
-        )}
+          {(!myThemes || myThemes.length === 0) && (
+            <p className="text-foreground/60">
+              Vous n&apos;avez proposé aucun thème.{" "}
+              <Link href="/themes/new" className="underline">
+                En proposer un
+              </Link>
+              .
+            </p>
+          )}
 
-        <ul className="flex flex-col gap-3">
-          {myThemes?.map((t) => (
-            <li key={t.id} className="rounded-lg border border-foreground/10 p-4">
-              <p className="font-medium">
-                {t.category?.emoji} {t.title}
-              </p>
-              <p className="text-xs text-foreground/50">
-                {formatDate(t.scheduled_at)} · {t.status}
-              </p>
-            </li>
-          ))}
-        </ul>
-      </section>
+          <ul className="flex flex-col gap-3">
+            {myThemes?.map((t) => (
+              <li key={t.id} className="rounded-lg border border-foreground/10 p-4">
+                <p className="font-medium">
+                  {t.category?.emoji} {t.title}
+                </p>
+                <p className="text-xs text-foreground/50">
+                  {formatDate(t.scheduled_at)} · {t.status}
+                </p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      </div>
     </div>
   );
 }
