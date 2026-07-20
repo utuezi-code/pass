@@ -44,8 +44,7 @@ export default function Hero() {
           transition={{ duration: 0.7, delay: 0.25 }}
           className="mx-auto mt-4 max-w-md text-lg text-neutral-300"
         >
-          Choisissez un sujet qui vous passionne. Dès que 8 personnes vous rejoignent, un
-          cercle se forme et vous échangez en visio.
+          Politique, argent, amour : les sujets qui fâchent, entre 8 inconnus.
         </motion.p>
 
         <motion.div
