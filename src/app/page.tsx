@@ -1,7 +1,9 @@
-import Link from "next/link";
 import { redirect } from "next/navigation";
-import AuthErrorBanner from "@/components/AuthErrorBanner";
 import { createClient } from "@/lib/supabase/server";
+import Hero from "@/components/landing/Hero";
+import HowItWorks from "@/components/landing/HowItWorks";
+import CategoriesShowcase from "@/components/landing/CategoriesShowcase";
+import FinalCTA from "@/components/landing/FinalCTA";
 
 export default async function Home() {
   const supabase = await createClient();
@@ -13,32 +15,18 @@ export default async function Home() {
     redirect("/themes");
   }
 
-  return (
-    <div className="flex flex-1 flex-col items-center justify-center gap-8 p-8 text-center">
-      <AuthErrorBanner />
-      <div className="flex flex-col gap-3">
-        <span className="text-5xl">🔥</span>
-        <h1 className="text-4xl font-semibold tracking-tight">Cercle</h1>
-        <p className="max-w-md text-foreground/60">
-          Choisissez un thème. Dès que 8 personnes vous rejoignent, un cercle se forme
-          automatiquement et vous recevez le lien de la visio.
-        </p>
-      </div>
+  const { data: categories } = await supabase
+    .from("categories")
+    .select("id, title, emoji")
+    .eq("active", true)
+    .order("title");
 
-      <div className="flex w-full max-w-xs flex-col gap-3 sm:w-auto sm:max-w-none sm:flex-row">
-        <Link
-          href="/register"
-          className="rounded-md bg-foreground px-5 py-2.5 text-center font-medium text-background"
-        >
-          Créer un compte
-        </Link>
-        <Link
-          href="/login"
-          className="rounded-md border border-foreground/20 px-5 py-2.5 text-center font-medium"
-        >
-          Se connecter
-        </Link>
-      </div>
+  return (
+    <div>
+      <Hero />
+      <HowItWorks />
+      <CategoriesShowcase categories={categories ?? []} />
+      <FinalCTA />
     </div>
   );
 }
