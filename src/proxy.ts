@@ -4,7 +4,7 @@ import { NextResponse, type NextRequest } from "next/server";
 // /themes reste public (lecture publique en RLS, cf. spec) : un visiteur doit
 // pouvoir voir ce qu'il y a sur le site avant de créer un compte. Seules les
 // actions qui engagent réellement (proposer, dashboard) exigent une session.
-const PROTECTED_PATHS = ["/dashboard", "/themes/new", "/circle"];
+const PROTECTED_PATHS = ["/dashboard", "/themes/new", "/circle", "/reset-password"];
 
 export async function proxy(request: NextRequest) {
   let response = NextResponse.next({ request });
