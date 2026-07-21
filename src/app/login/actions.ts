@@ -3,6 +3,7 @@
 import { redirect } from "next/navigation";
 import { loginSchema } from "@/lib/validation";
 import { createClient } from "@/lib/supabase/server";
+import { describeProfileInsertError } from "@/lib/profile-errors";
 
 export type LoginState = {
   error?: string;
@@ -44,14 +45,23 @@ export async function loginAction(
     };
 
     if (metadata.full_name && metadata.whatsapp_number) {
-      // Best-effort : un conflit ici (numéro déjà pris entre-temps par un
-      // autre compte) laisse simplement le profil incomplet plutôt que de
-      // faire échouer une connexion par ailleurs valide.
-      await supabase.from("profiles").insert({
+      const { error: profileError } = await supabase.from("profiles").insert({
         id: data.user.id,
         full_name: metadata.full_name,
         whatsapp_number: metadata.whatsapp_number,
       });
+
+      // Un compte confirmé sans profil (ex: whatsapp_number pris par un
+      // autre compte au moment de la confirmation) ne doit pas pouvoir se
+      // connecter dans un état cassé : le reste de l'app suppose qu'un
+      // utilisateur authentifié a toujours une ligne `profiles`.
+      if (profileError) {
+        const message = describeProfileInsertError(profileError);
+        if (message) {
+          await supabase.auth.signOut();
+          return { error: message };
+        }
+      }
     }
   }
 
