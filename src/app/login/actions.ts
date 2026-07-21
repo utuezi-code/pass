@@ -56,5 +56,6 @@ export async function loginAction(
   }
 
   const next = formData.get("next");
-  redirect(typeof next === "string" && next.startsWith("/") ? next : "/themes");
+  const isSafeNext = typeof next === "string" && next.startsWith("/") && !next.startsWith("//");
+  redirect(isSafeNext ? next : "/themes");
 }
