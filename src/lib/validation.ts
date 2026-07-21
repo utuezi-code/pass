@@ -1,62 +1,74 @@
 import { z } from "zod";
 
-// Format E.164 : + suivi de 8 à 15 chiffres, pas de zéro en tête après l'indicatif
+type T = (key: string) => string;
+
 const E164_REGEX = /^\+[1-9]\d{7,14}$/;
 
-export const e164PhoneSchema = z
-  .string()
-  .trim()
-  .regex(E164_REGEX, "Numéro invalide — utilisez le format international, ex: +2250700000000");
+function e164PhoneSchema(t: T) {
+  return z.string().trim().regex(E164_REGEX, t("phoneInvalid"));
+}
 
-export const registerSchema = z.object({
-  fullName: z.string().trim().min(2, "Nom trop court").max(100),
-  email: z.email("Email invalide"),
-  password: z.string().min(8, "8 caractères minimum"),
-  whatsappNumber: e164PhoneSchema,
-});
-export type RegisterInput = z.infer<typeof registerSchema>;
-
-export const loginSchema = z.object({
-  email: z.email("Email invalide"),
-  password: z.string().min(1, "Mot de passe requis"),
-});
-export type LoginInput = z.infer<typeof loginSchema>;
-
-export const forgotPasswordSchema = z.object({
-  email: z.email("Email invalide"),
-});
-export type ForgotPasswordInput = z.infer<typeof forgotPasswordSchema>;
-
-export const resetPasswordSchema = z
-  .object({
-    password: z.string().min(8, "8 caractères minimum"),
-    confirmPassword: z.string().min(1, "Confirmation requise"),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: "Les mots de passe ne correspondent pas",
-    path: ["confirmPassword"],
+export function createRegisterSchema(t: T) {
+  return z.object({
+    fullName: z.string().trim().min(2, t("nameTooShort")).max(100),
+    email: z.email(t("emailInvalid")),
+    password: z.string().min(8, t("passwordTooShort")),
+    whatsappNumber: e164PhoneSchema(t),
   });
-export type ResetPasswordInput = z.infer<typeof resetPasswordSchema>;
+}
+export type RegisterInput = z.infer<ReturnType<typeof createRegisterSchema>>;
+
+export function createLoginSchema(t: T) {
+  return z.object({
+    email: z.email(t("emailInvalid")),
+    password: z.string().min(1, t("passwordRequired")),
+  });
+}
+export type LoginInput = z.infer<ReturnType<typeof createLoginSchema>>;
+
+export function createForgotPasswordSchema(t: T) {
+  return z.object({
+    email: z.email(t("emailInvalid")),
+  });
+}
+export type ForgotPasswordInput = z.infer<ReturnType<typeof createForgotPasswordSchema>>;
+
+export function createResetPasswordSchema(t: T) {
+  return z
+    .object({
+      password: z.string().min(8, t("passwordTooShort")),
+      confirmPassword: z.string().min(1, t("confirmPasswordRequired")),
+    })
+    .refine((data) => data.password === data.confirmPassword, {
+      message: t("passwordsDontMatch"),
+      path: ["confirmPassword"],
+    });
+}
+export type ResetPasswordInput = z.infer<ReturnType<typeof createResetPasswordSchema>>;
 
 export const joinThemeSchema = z.object({
   themeId: z.uuid(),
 });
 export type JoinThemeInput = z.infer<typeof joinThemeSchema>;
 
-export const createThemeSchema = z.object({
-  categoryId: z.uuid("Choisissez une catégorie"),
-  title: z.string().trim().min(3, "Titre trop court").max(120),
-  description: z.string().trim().min(10, "Décrivez un peu plus le sujet").max(1000),
-  scheduledAt: z
-    .string()
-    .refine((v) => !Number.isNaN(Date.parse(v)), "Date invalide")
-    .refine((v) => new Date(v).getTime() > Date.now(), "La date doit être dans le futur"),
-});
-export type CreateThemeInput = z.infer<typeof createThemeSchema>;
+export function createThemeSchema(t: T) {
+  return z.object({
+    categoryId: z.uuid(t("categoryRequired")),
+    title: z.string().trim().min(3, t("titleTooShort")).max(120),
+    description: z.string().trim().min(10, t("descriptionTooShort")).max(1000),
+    scheduledAt: z
+      .string()
+      .refine((v) => !Number.isNaN(Date.parse(v)), t("dateInvalid"))
+      .refine((v) => new Date(v).getTime() > Date.now(), t("dateMustBeFuture")),
+  });
+}
+export type CreateThemeInput = z.infer<ReturnType<typeof createThemeSchema>>;
 
-export const reportUserSchema = z.object({
-  reportedId: z.uuid(),
-  circleId: z.uuid(),
-  reason: z.string().trim().min(5, "Décrivez un peu plus la raison").max(500),
-});
-export type ReportUserInput = z.infer<typeof reportUserSchema>;
+export function createReportUserSchema(t: T) {
+  return z.object({
+    reportedId: z.uuid(),
+    circleId: z.uuid(),
+    reason: z.string().trim().min(5, t("reasonTooShort")).max(500),
+  });
+}
+export type ReportUserInput = z.infer<ReturnType<typeof createReportUserSchema>>;

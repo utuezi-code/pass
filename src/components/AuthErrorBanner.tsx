@@ -1,10 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 
 export default function AuthErrorBanner() {
   const [description, setDescription] = useState<string | null>(null);
+  const t = useTranslations("authErrorBanner");
 
   useEffect(() => {
     const params = new URLSearchParams(
@@ -21,14 +23,17 @@ export default function AuthErrorBanner() {
 
   return (
     <div className="mx-auto mb-6 max-w-md rounded-md border border-red-500/30 bg-red-500/10 p-4 text-sm">
-      <p>Lien invalide ou expiré : {description}</p>
+      <p>
+        {t("prefix")}
+        {description}
+      </p>
       <p className="mt-1">
         <Link href="/register" className="underline">
-          Réessayez de vous inscrire
+          {t("retryRegister")}
         </Link>{" "}
-        ou{" "}
+        {t("or")}{" "}
         <Link href="/login" className="underline">
-          connectez-vous
+          {t("login")}
         </Link>
         .
       </p>

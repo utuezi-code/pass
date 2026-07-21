@@ -1,0 +1,187 @@
+{
+  "metadata": {
+    "title": "Wiclos — Debate with eight, on video",
+    "description": "Politics, sport, economy, love... Pick a topic you care about, join seven other strangers and talk it out on video as soon as the circle is complete.",
+    "keywords": [
+      "debate",
+      "video call",
+      "online discussion",
+      "discussion circle",
+      "closed doors",
+      "politics",
+      "sport",
+      "economy",
+      "meeting people"
+    ]
+  },
+  "nav": {
+    "brand": "Wiclos",
+    "themes": "Topics",
+    "dashboard": "My dashboard",
+    "logout": "Log out",
+    "login": "Log in",
+    "register": "Create an account"
+  },
+  "hero": {
+    "tagline": "Politics, money, love: the topics that spark arguments, among 8 strangers.",
+    "createAccount": "Create an account",
+    "login": "Log in",
+    "seeTopics": "See live topics →"
+  },
+  "howItWorks": {
+    "title": "How it works",
+    "step1Title": "Pick a topic",
+    "step1Text": "Politics, sport, economy, culture... browse the topics proposed by the community.",
+    "step2Title": "Join or propose",
+    "step2Text": "Sign up for an existing topic, or propose your own with a date for the discussion.",
+    "step3Title": "The circle forms",
+    "step3Text": "As soon as 8 people have joined, the video call starts automatically at the scheduled time."
+  },
+  "categoriesShowcase": {
+    "title": "Topics that really spark debate",
+    "subtitle": "The ones everyone's talking about on social media — for real, on video, with eight people."
+  },
+  "finalCTA": {
+    "title": "Your circle is waiting",
+    "subtitle": "Join for free, in under a minute.",
+    "cta": "Create my account"
+  },
+  "login": {
+    "title": "Log in",
+    "email": "Email",
+    "password": "Password",
+    "forgotPassword": "Forgot?",
+    "submit": "Log in",
+    "submitting": "Logging in…",
+    "noAccount": "Don't have an account yet?",
+    "registerLink": "Sign up"
+  },
+  "register": {
+    "checkEmailTitle": "Check your email",
+    "checkEmailText": "A confirmation link has been sent to you. Click it to activate your account.",
+    "title": "Create an account",
+    "subtitle": "Join a circle in a few seconds.",
+    "fullName": "Full name",
+    "email": "Email",
+    "password": "Password",
+    "passwordHint": "8 characters minimum.",
+    "whatsapp": "WhatsApp number",
+    "whatsappHint": "To notify you as soon as your circle is complete.",
+    "submit": "Create my account",
+    "submitting": "Creating…",
+    "alreadyRegistered": "Already registered?",
+    "loginLink": "Log in"
+  },
+  "forgotPassword": {
+    "title": "Forgot password",
+    "subtitle": "Enter your email, we'll send you a link to choose a new one.",
+    "sentMessage": "If an account exists with this address, a reset email has just been sent. Check your inbox (and spam folder).",
+    "email": "Email",
+    "submit": "Send the link",
+    "submitting": "Sending…",
+    "backToLogin": "Back to login"
+  },
+  "resetPassword": {
+    "title": "New password",
+    "password": "New password",
+    "confirmPassword": "Confirm password",
+    "submit": "Update password",
+    "submitting": "Updating…"
+  },
+  "authErrorBanner": {
+    "prefix": "Invalid or expired link: ",
+    "retryRegister": "Try registering again",
+    "or": "or",
+    "login": "log in"
+  },
+  "themes": {
+    "title": "Topics",
+    "subtitle": "Join a topic before its date. As soon as 8 people have joined, a circle forms.",
+    "propose": "Propose a topic",
+    "emptyCategory": "No topics here yet — be the first to propose one →",
+    "noResults": "No topics match.",
+    "proposeOne": "Propose one"
+  },
+  "themeFilters": {
+    "allCategories": "All categories",
+    "searchPlaceholder": "Search for a keyword…"
+  },
+  "joinThemeButton": {
+    "viewCircle": "View my circle",
+    "waiting": "Waiting…",
+    "loginToJoin": "Log in to join",
+    "join": "Join",
+    "suspendedError": "Your account has been suspended following reports.",
+    "genericError": "Unable to join right now."
+  },
+  "themesNew": {
+    "title": "Propose a topic",
+    "subtitle": "Choose a category, describe your topic and set a date for the discussion. The circle forms as soon as 8 people have joined you before that date.",
+    "category": "Category",
+    "categoryPlaceholder": "Choose a category",
+    "titleLabel": "Topic title",
+    "titlePlaceholder": "E.g.: Bouncing back after a career setback",
+    "description": "Description",
+    "descriptionPlaceholder": "What do you want to talk about with the circle?",
+    "scheduledAt": "Date and time of the discussion",
+    "submit": "Propose this topic",
+    "submitting": "Creating…"
+  },
+  "dashboard": {
+    "title": "My dashboard",
+    "myRegistrations": "My sign-ups",
+    "noRegistrations": "You haven't joined any topic yet.",
+    "seeTopics": "See topics",
+    "joinVideo": "Join the video call",
+    "circleMembers": "Circle members",
+    "waitingCircle": "Waiting for the circle to form (8 people)…",
+    "myProposedTopics": "My proposed topics",
+    "noProposedTopics": "You haven't proposed any topic.",
+    "proposeOne": "Propose one",
+    "defaultMemberName": "A member"
+  },
+  "circle": {
+    "yourCircle": "Your circle",
+    "backDashboard": "← Dashboard",
+    "guestName": "Guest"
+  },
+  "jitsiEmbed": {
+    "connecting": "Connecting to the circle…",
+    "error": "Unable to load the video call. Try again in a moment."
+  },
+  "report": {
+    "sent": "Report sent, thank you.",
+    "action": "Report",
+    "why": "Why report {name}?",
+    "reasonPlaceholder": "Describe what happened…",
+    "send": "Send",
+    "cancel": "Cancel"
+  },
+  "validation": {
+    "phoneInvalid": "Invalid number — use the international format, e.g.: +2250700000000",
+    "nameTooShort": "Name too short",
+    "emailInvalid": "Invalid email",
+    "passwordTooShort": "8 characters minimum",
+    "passwordRequired": "Password required",
+    "confirmPasswordRequired": "Confirmation required",
+    "passwordsDontMatch": "Passwords don't match",
+    "categoryRequired": "Choose a category",
+    "titleTooShort": "Title too short",
+    "descriptionTooShort": "Describe the topic a bit more",
+    "dateInvalid": "Invalid date",
+    "dateMustBeFuture": "The date must be in the future",
+    "reasonTooShort": "Describe the reason a bit more",
+    "genericForm": "Invalid form"
+  },
+  "actions": {
+    "loginWrongCredentials": "Incorrect email or password.",
+    "mustBeLoggedIn": "You must be logged in.",
+    "reportFailed": "Unable to send the report right now.",
+    "registerFailed": "Unable to register, please try again.",
+    "themeCreateFailed": "Unable to create the topic: ",
+    "unknownError": "unknown error",
+    "resetPasswordFailed": "Unable to update the password. Request a new link.",
+    "profileIncomplete": "Account created but profile incomplete: ",
+    "whatsappTaken": "This WhatsApp number is already linked to an account."
+  }
+}

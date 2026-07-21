@@ -1,4 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
+import { getLocale, getTranslations } from "next-intl/server";
+import { getPathname } from "@/i18n/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { describeProfileInsertError } from "@/lib/profile-errors";
 
@@ -6,6 +8,7 @@ export async function GET(request: NextRequest) {
   const { searchParams, origin } = new URL(request.url);
   const code = searchParams.get("code");
   const next = searchParams.get("next") ?? "/themes";
+  const locale = await getLocale();
 
   if (code) {
     const supabase = await createClient();
@@ -33,10 +36,11 @@ export async function GET(request: NextRequest) {
           });
 
           if (profileError) {
-            const message = describeProfileInsertError(profileError);
+            const tActions = await getTranslations("actions");
+            const message = describeProfileInsertError(profileError, tActions);
             if (message) {
               await supabase.auth.signOut();
-              const conflictUrl = new URL(origin);
+              const conflictUrl = new URL(getPathname({ href: "/", locale }), origin);
               conflictUrl.searchParams.set("error_description", message);
               return NextResponse.redirect(conflictUrl);
             }
@@ -44,9 +48,13 @@ export async function GET(request: NextRequest) {
         }
       }
 
-      return NextResponse.redirect(`${origin}${next}`);
+      const nextPathname = getPathname({ href: next, locale });
+      return NextResponse.redirect(new URL(nextPathname, origin));
     }
   }
 
-  return NextResponse.redirect(`${origin}/login?error=auth_callback_failed`);
+  const loginPathname = getPathname({ href: "/login", locale });
+  const failedUrl = new URL(loginPathname, origin);
+  failedUrl.searchParams.set("error", "auth_callback_failed");
+  return NextResponse.redirect(failedUrl);
 }

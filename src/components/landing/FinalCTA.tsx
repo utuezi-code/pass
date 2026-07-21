@@ -1,9 +1,12 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 
 export default function FinalCTA() {
+  const t = useTranslations("finalCTA");
+
   return (
     <section className="relative overflow-hidden bg-neutral-900 px-4 py-24 text-center text-neutral-50">
       <div
@@ -17,8 +20,8 @@ export default function FinalCTA() {
         transition={{ duration: 0.6 }}
         className="relative z-10 mx-auto max-w-lg"
       >
-        <h2 className="text-3xl font-bold">Votre cercle vous attend</h2>
-        <p className="mt-3 text-neutral-400">Rejoignez gratuitement, en moins d&apos;une minute.</p>
+        <h2 className="text-3xl font-bold">{t("title")}</h2>
+        <p className="mt-3 text-neutral-400">{t("subtitle")}</p>
         <motion.div
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.97 }}
@@ -28,7 +31,7 @@ export default function FinalCTA() {
             href="/register"
             className="block rounded-full bg-gradient-to-r from-orange-500 to-red-500 px-8 py-3.5 font-semibold text-white shadow-lg shadow-orange-900/40"
           >
-            Créer mon compte
+            {t("cta")}
           </Link>
         </motion.div>
       </motion.div>

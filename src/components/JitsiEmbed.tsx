@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 
 declare global {
   interface Window {
@@ -25,6 +26,7 @@ export default function JitsiEmbed({
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [status, setStatus] = useState<"loading" | "ready" | "error">("loading");
+  const t = useTranslations("jitsiEmbed");
 
   useEffect(() => {
     let api: InstanceType<NonNullable<Window["JitsiMeetExternalAPI"]>> | null = null;
@@ -71,7 +73,7 @@ export default function JitsiEmbed({
   if (status === "error") {
     return (
       <div className="flex h-full items-center justify-center text-sm text-neutral-400">
-        Impossible de charger la visio. Réessayez dans un instant.
+        {t("error")}
       </div>
     );
   }
@@ -80,7 +82,7 @@ export default function JitsiEmbed({
     <div className="relative h-full w-full">
       {status === "loading" && (
         <div className="absolute inset-0 flex items-center justify-center text-sm text-neutral-500">
-          Connexion au cercle…
+          {t("connecting")}
         </div>
       )}
       <div ref={containerRef} className="h-full w-full" />

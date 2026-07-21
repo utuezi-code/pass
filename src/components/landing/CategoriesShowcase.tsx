@@ -1,12 +1,18 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
+import { localizeCategoryTitle } from "@/lib/category-i18n";
 
 export default function CategoriesShowcase({
   categories,
+  locale,
 }: {
   categories: { id: string; title: string; emoji: string }[];
+  locale: string;
 }) {
+  const t = useTranslations("categoriesShowcase");
+
   if (categories.length === 0) return null;
 
   return (
@@ -19,7 +25,7 @@ export default function CategoriesShowcase({
           transition={{ duration: 0.6 }}
           className="text-3xl font-bold"
         >
-          Des sujets qui font vraiment débattre
+          {t("title")}
         </motion.h2>
         <motion.p
           initial={{ opacity: 0 }}
@@ -28,7 +34,7 @@ export default function CategoriesShowcase({
           transition={{ duration: 0.6, delay: 0.1 }}
           className="mt-3 text-neutral-400"
         >
-          Ceux dont tout le monde parle sur les réseaux — en vrai, en visio, à huit.
+          {t("subtitle")}
         </motion.p>
 
         <div className="mt-10 flex flex-wrap justify-center gap-3">
@@ -44,7 +50,7 @@ export default function CategoriesShowcase({
               style={{ animation: `float ${5 + (i % 4)}s ease-in-out ${(i % 5) * 0.4}s infinite` }}
             >
               <span>{c.emoji}</span>
-              {c.title}
+              {localizeCategoryTitle(c.title, locale)}
             </motion.span>
           ))}
         </div>

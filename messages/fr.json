@@ -1,0 +1,187 @@
+{
+  "metadata": {
+    "title": "Wiclos — Débattez à huit, en visio",
+    "description": "Politique, sport, économie, amour... Choisissez un sujet qui vous passionne, rejoignez sept autres inconnus et échangez en visio dès que le cercle est complet.",
+    "keywords": [
+      "débat",
+      "visioconférence",
+      "discussion en ligne",
+      "cercle de discussion",
+      "huis clos",
+      "politique",
+      "sport",
+      "économie",
+      "rencontre"
+    ]
+  },
+  "nav": {
+    "brand": "Wiclos",
+    "themes": "Thèmes",
+    "dashboard": "Mon dashboard",
+    "logout": "Se déconnecter",
+    "login": "Se connecter",
+    "register": "Créer un compte"
+  },
+  "hero": {
+    "tagline": "Politique, argent, amour : les sujets qui fâchent, entre 8 inconnus.",
+    "createAccount": "Créer un compte",
+    "login": "Se connecter",
+    "seeTopics": "Voir les thèmes en direct →"
+  },
+  "howItWorks": {
+    "title": "Comment ça marche",
+    "step1Title": "Choisissez un sujet",
+    "step1Text": "Politique, sport, économie, culture... parcourez les thèmes proposés par la communauté.",
+    "step2Title": "Rejoignez ou proposez",
+    "step2Text": "Inscrivez-vous à un thème existant, ou proposez le vôtre avec une date d'échange.",
+    "step3Title": "Le cercle se forme",
+    "step3Text": "Dès que 8 personnes sont réunies, la visio se lance automatiquement à la date prévue."
+  },
+  "categoriesShowcase": {
+    "title": "Des sujets qui font vraiment débattre",
+    "subtitle": "Ceux dont tout le monde parle sur les réseaux — en vrai, en visio, à huit."
+  },
+  "finalCTA": {
+    "title": "Votre cercle vous attend",
+    "subtitle": "Rejoignez gratuitement, en moins d'une minute.",
+    "cta": "Créer mon compte"
+  },
+  "login": {
+    "title": "Se connecter",
+    "email": "Email",
+    "password": "Mot de passe",
+    "forgotPassword": "Oublié ?",
+    "submit": "Se connecter",
+    "submitting": "Connexion…",
+    "noAccount": "Pas encore de compte ?",
+    "registerLink": "S'inscrire"
+  },
+  "register": {
+    "checkEmailTitle": "Vérifiez votre email",
+    "checkEmailText": "Un lien de confirmation vous a été envoyé. Cliquez dessus pour activer votre compte.",
+    "title": "Créer un compte",
+    "subtitle": "Rejoignez un cercle en quelques secondes.",
+    "fullName": "Nom complet",
+    "email": "Email",
+    "password": "Mot de passe",
+    "passwordHint": "8 caractères minimum.",
+    "whatsapp": "Numéro WhatsApp",
+    "whatsappHint": "Pour vous prévenir dès que votre cercle est complet.",
+    "submit": "Créer mon compte",
+    "submitting": "Création…",
+    "alreadyRegistered": "Déjà inscrit ?",
+    "loginLink": "Se connecter"
+  },
+  "forgotPassword": {
+    "title": "Mot de passe oublié",
+    "subtitle": "Indiquez votre email, on vous envoie un lien pour en choisir un nouveau.",
+    "sentMessage": "Si un compte existe avec cette adresse, un email de réinitialisation vient de partir. Vérifiez votre boîte de réception (et vos spams).",
+    "email": "Email",
+    "submit": "Envoyer le lien",
+    "submitting": "Envoi…",
+    "backToLogin": "Retour à la connexion"
+  },
+  "resetPassword": {
+    "title": "Nouveau mot de passe",
+    "password": "Nouveau mot de passe",
+    "confirmPassword": "Confirmez le mot de passe",
+    "submit": "Mettre à jour le mot de passe",
+    "submitting": "Mise à jour…"
+  },
+  "authErrorBanner": {
+    "prefix": "Lien invalide ou expiré : ",
+    "retryRegister": "Réessayez de vous inscrire",
+    "or": "ou",
+    "login": "connectez-vous"
+  },
+  "themes": {
+    "title": "Thèmes",
+    "subtitle": "Rejoignez un thème avant sa date. Dès que 8 personnes sont réunies, un cercle se forme.",
+    "propose": "Proposer un thème",
+    "emptyCategory": "Aucun thème ici pour l'instant — soyez le premier à en proposer un →",
+    "noResults": "Aucun thème ne correspond.",
+    "proposeOne": "Proposez-en un"
+  },
+  "themeFilters": {
+    "allCategories": "Toutes les catégories",
+    "searchPlaceholder": "Rechercher un mot-clé…"
+  },
+  "joinThemeButton": {
+    "viewCircle": "Voir mon cercle",
+    "waiting": "En attente…",
+    "loginToJoin": "Se connecter pour rejoindre",
+    "join": "Rejoindre",
+    "suspendedError": "Votre compte a été suspendu suite à des signalements.",
+    "genericError": "Impossible de rejoindre pour le moment."
+  },
+  "themesNew": {
+    "title": "Proposer un thème",
+    "subtitle": "Choisissez une catégorie, décrivez votre sujet et fixez une date d'échange. Le cercle se forme dès que 8 personnes vous ont rejoint avant cette date.",
+    "category": "Catégorie",
+    "categoryPlaceholder": "Choisir une catégorie",
+    "titleLabel": "Titre du thème",
+    "titlePlaceholder": "Ex: Se relancer après un échec professionnel",
+    "description": "Description",
+    "descriptionPlaceholder": "De quoi voulez-vous parler avec le cercle ?",
+    "scheduledAt": "Date et heure de l'échange",
+    "submit": "Proposer ce thème",
+    "submitting": "Création…"
+  },
+  "dashboard": {
+    "title": "Mon tableau de bord",
+    "myRegistrations": "Mes inscriptions",
+    "noRegistrations": "Vous n'avez rejoint aucun thème pour le moment.",
+    "seeTopics": "Voir les thèmes",
+    "joinVideo": "Rejoindre la visio",
+    "circleMembers": "Membres du cercle",
+    "waitingCircle": "En attente que le cercle se forme (8 personnes)…",
+    "myProposedTopics": "Mes thèmes proposés",
+    "noProposedTopics": "Vous n'avez proposé aucun thème.",
+    "proposeOne": "En proposer un",
+    "defaultMemberName": "Un membre"
+  },
+  "circle": {
+    "yourCircle": "Votre cercle",
+    "backDashboard": "← Dashboard",
+    "guestName": "Invité"
+  },
+  "jitsiEmbed": {
+    "connecting": "Connexion au cercle…",
+    "error": "Impossible de charger la visio. Réessayez dans un instant."
+  },
+  "report": {
+    "sent": "Signalement envoyé, merci.",
+    "action": "Signaler",
+    "why": "Pourquoi signaler {name} ?",
+    "reasonPlaceholder": "Décrivez ce qui s'est passé…",
+    "send": "Envoyer",
+    "cancel": "Annuler"
+  },
+  "validation": {
+    "phoneInvalid": "Numéro invalide — utilisez le format international, ex: +2250700000000",
+    "nameTooShort": "Nom trop court",
+    "emailInvalid": "Email invalide",
+    "passwordTooShort": "8 caractères minimum",
+    "passwordRequired": "Mot de passe requis",
+    "confirmPasswordRequired": "Confirmation requise",
+    "passwordsDontMatch": "Les mots de passe ne correspondent pas",
+    "categoryRequired": "Choisissez une catégorie",
+    "titleTooShort": "Titre trop court",
+    "descriptionTooShort": "Décrivez un peu plus le sujet",
+    "dateInvalid": "Date invalide",
+    "dateMustBeFuture": "La date doit être dans le futur",
+    "reasonTooShort": "Décrivez un peu plus la raison",
+    "genericForm": "Formulaire invalide"
+  },
+  "actions": {
+    "loginWrongCredentials": "Email ou mot de passe incorrect.",
+    "mustBeLoggedIn": "Vous devez être connecté.",
+    "reportFailed": "Impossible d'envoyer le signalement pour le moment.",
+    "registerFailed": "Inscription impossible, réessayez.",
+    "themeCreateFailed": "Impossible de créer le thème : ",
+    "unknownError": "erreur inconnue",
+    "resetPasswordFailed": "Impossible de mettre à jour le mot de passe. Redemandez un lien.",
+    "profileIncomplete": "Compte créé mais profil incomplet : ",
+    "whatsappTaken": "Ce numéro WhatsApp est déjà associé à un compte."
+  }
+}

@@ -1,12 +1,15 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import EmberField from "./EmberField";
 import CircleFormation from "./CircleFormation";
 import AuthErrorBanner from "@/components/AuthErrorBanner";
 
 export default function Hero() {
+  const t = useTranslations("hero");
+
   return (
     <section className="relative isolate flex min-h-[100svh] flex-col items-center justify-center overflow-hidden bg-neutral-950 px-4 py-24 text-center text-neutral-50">
       <div
@@ -44,7 +47,7 @@ export default function Hero() {
           transition={{ duration: 0.7, delay: 0.25 }}
           className="mx-auto mt-4 max-w-md text-lg text-neutral-300"
         >
-          Politique, argent, amour : les sujets qui fâchent, entre 8 inconnus.
+          {t("tagline")}
         </motion.p>
 
         <motion.div
@@ -67,7 +70,7 @@ export default function Hero() {
               href="/register"
               className="block rounded-full bg-gradient-to-r from-orange-500 to-red-500 px-6 py-3 text-center font-semibold text-white shadow-lg shadow-orange-900/40"
             >
-              Créer un compte
+              {t("createAccount")}
             </Link>
           </motion.div>
           <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
@@ -75,7 +78,7 @@ export default function Hero() {
               href="/login"
               className="block rounded-full border border-white/20 px-6 py-3 text-center font-semibold text-white/90 backdrop-blur"
             >
-              Se connecter
+              {t("login")}
             </Link>
           </motion.div>
         </motion.div>
@@ -90,7 +93,7 @@ export default function Hero() {
             href="/themes"
             className="text-sm font-medium text-neutral-400 underline-offset-4 transition hover:text-orange-400 hover:underline"
           >
-            Voir les thèmes en direct →
+            {t("seeTopics")}
           </Link>
         </motion.div>
 

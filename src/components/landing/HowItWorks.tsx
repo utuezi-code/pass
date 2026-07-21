@@ -1,26 +1,17 @@
 "use client";
 
 import { motion } from "framer-motion";
-
-const steps = [
-  {
-    emoji: "💬",
-    title: "Choisissez un sujet",
-    text: "Politique, sport, économie, culture... parcourez les thèmes proposés par la communauté.",
-  },
-  {
-    emoji: "🙋",
-    title: "Rejoignez ou proposez",
-    text: "Inscrivez-vous à un thème existant, ou proposez le vôtre avec une date d'échange.",
-  },
-  {
-    emoji: "🔥",
-    title: "Le cercle se forme",
-    text: "Dès que 8 personnes sont réunies, la visio se lance automatiquement à la date prévue.",
-  },
-];
+import { useTranslations } from "next-intl";
 
 export default function HowItWorks() {
+  const t = useTranslations("howItWorks");
+
+  const steps = [
+    { emoji: "💬", title: t("step1Title"), text: t("step1Text") },
+    { emoji: "🙋", title: t("step2Title"), text: t("step2Text") },
+    { emoji: "🔥", title: t("step3Title"), text: t("step3Text") },
+  ];
+
   return (
     <section className="bg-neutral-950 px-4 py-20 text-neutral-50">
       <div className="mx-auto max-w-4xl">
@@ -31,7 +22,7 @@ export default function HowItWorks() {
           transition={{ duration: 0.6 }}
           className="text-center text-3xl font-bold"
         >
-          Comment ça marche
+          {t("title")}
         </motion.h2>
 
         <div className="mt-12 grid gap-6 sm:grid-cols-3">
