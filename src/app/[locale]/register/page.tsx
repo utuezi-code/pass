@@ -70,7 +70,7 @@ export default function RegisterPage() {
 
         <div className="flex flex-col gap-1.5">
           <label htmlFor="whatsappNumber" className="text-sm font-medium text-neutral-300">
-            {t("whatsapp")}
+            {t("whatsapp")} <span className="text-neutral-500">({t("optional")})</span>
           </label>
           <PhoneInput
             id="whatsappNumber"
@@ -81,6 +81,25 @@ export default function RegisterPage() {
           />
           <input type="hidden" name="whatsappNumber" value={phone ?? ""} />
           <p className="text-xs text-neutral-500">{t("whatsappHint")}</p>
+
+          {phone && (
+            <label className="mt-1 flex items-start gap-2 text-xs text-neutral-400">
+              <input
+                type="checkbox"
+                name="whatsappConsent"
+                required
+                className="mt-0.5 accent-orange-500"
+              />
+              {t("whatsappConsent")}
+            </label>
+          )}
+        </div>
+
+        <div className="flex flex-col gap-1.5">
+          <label htmlFor="inviteCode" className="text-sm font-medium text-neutral-300">
+            {t("inviteCode")} <span className="text-neutral-500">({t("optional")})</span>
+          </label>
+          <input id="inviteCode" name="inviteCode" type="text" className={inputClass} />
         </div>
 
         {state.error && <p className="text-sm text-red-400">{state.error}</p>}

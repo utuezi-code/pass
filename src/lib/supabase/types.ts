@@ -13,16 +13,22 @@ export type Database = {
         Row: {
           id: string;
           full_name: string;
-          whatsapp_number: string;
+          whatsapp_number: string | null;
           whatsapp_verified: boolean;
+          notification_channel: "email" | "whatsapp" | "push";
+          consent_given_at: string | null;
+          no_show_count: number;
           suspended: boolean;
           created_at: string;
         };
         Insert: {
           id: string;
           full_name: string;
-          whatsapp_number: string;
+          whatsapp_number?: string | null;
           whatsapp_verified?: boolean;
+          notification_channel?: "email" | "whatsapp" | "push";
+          consent_given_at?: string | null;
+          no_show_count?: number;
           suspended?: boolean;
           created_at?: string;
         };
@@ -53,6 +59,7 @@ export type Database = {
           scheduled_at: string;
           capacity: number;
           status: "open" | "confirmed" | "cancelled" | "completed";
+          recurring_slot_id: string | null;
           created_at: string;
         };
         Insert: {
@@ -64,6 +71,7 @@ export type Database = {
           scheduled_at: string;
           capacity?: number;
           status?: "open" | "confirmed" | "cancelled" | "completed";
+          recurring_slot_id?: string | null;
           created_at?: string;
         };
         Update: Partial<Database["public"]["Tables"]["themes"]["Insert"]>;
@@ -80,6 +88,13 @@ export type Database = {
             columns: ["creator_id"];
             isOneToOne: false;
             referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "themes_recurring_slot_id_fkey";
+            columns: ["recurring_slot_id"];
+            isOneToOne: false;
+            referencedRelation: "recurring_slots";
             referencedColumns: ["id"];
           },
         ];
@@ -184,6 +199,83 @@ export type Database = {
           },
         ];
       };
+      app_config: {
+        Row: {
+          key: string;
+          value: unknown;
+          updated_at: string;
+        };
+        Insert: Partial<Database["public"]["Tables"]["app_config"]["Row"]>;
+        Update: Partial<Database["public"]["Tables"]["app_config"]["Row"]>;
+        Relationships: Relationship[];
+      };
+      attendance: {
+        Row: {
+          id: string;
+          circle_id: string;
+          user_id: string;
+          status: "pending" | "present" | "no_show";
+          marked_at: string | null;
+          created_at: string;
+        };
+        Insert: Partial<Database["public"]["Tables"]["attendance"]["Row"]>;
+        Update: Partial<Database["public"]["Tables"]["attendance"]["Row"]>;
+        Relationships: [
+          {
+            foreignKeyName: "attendance_circle_id_fkey";
+            columns: ["circle_id"];
+            isOneToOne: false;
+            referencedRelation: "circles";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "attendance_user_id_fkey";
+            columns: ["user_id"];
+            isOneToOne: false;
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      recurring_slots: {
+        Row: {
+          id: string;
+          category_id: string;
+          created_by: string;
+          title: string;
+          description: string;
+          day_of_week: number;
+          time_of_day: string;
+          capacity: number | null;
+          active: boolean;
+          next_run_at: string;
+          created_at: string;
+        };
+        Insert: Partial<Database["public"]["Tables"]["recurring_slots"]["Row"]>;
+        Update: Partial<Database["public"]["Tables"]["recurring_slots"]["Row"]>;
+        Relationships: [
+          {
+            foreignKeyName: "recurring_slots_category_id_fkey";
+            columns: ["category_id"];
+            isOneToOne: false;
+            referencedRelation: "categories";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      invite_codes: {
+        Row: {
+          code: string;
+          created_by: string | null;
+          max_uses: number;
+          uses_count: number;
+          expires_at: string | null;
+          created_at: string;
+        };
+        Insert: Partial<Database["public"]["Tables"]["invite_codes"]["Row"]>;
+        Update: Partial<Database["public"]["Tables"]["invite_codes"]["Row"]>;
+        Relationships: Relationship[];
+      };
     };
     Views: Record<string, never>;
     Functions: {
@@ -196,6 +288,14 @@ export type Database = {
           circle_id?: string;
           meeting_url?: string;
         };
+      };
+      mark_attendance: {
+        Args: { p_circle_id: string };
+        Returns: undefined;
+      };
+      consume_invite_code: {
+        Args: { p_code: string };
+        Returns: boolean;
       };
     };
   };

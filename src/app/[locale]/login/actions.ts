@@ -48,14 +48,20 @@ export async function loginAction(
   if (!existingProfile) {
     const metadata = data.user.user_metadata as {
       full_name?: string;
-      whatsapp_number?: string;
+      whatsapp_number?: string | null;
+      whatsapp_consent?: boolean;
     };
 
-    if (metadata.full_name && metadata.whatsapp_number) {
+    if (metadata.full_name) {
       const { error: profileError } = await supabase.from("profiles").insert({
         id: data.user.id,
         full_name: metadata.full_name,
-        whatsapp_number: metadata.whatsapp_number,
+        whatsapp_number: metadata.whatsapp_number ?? null,
+        notification_channel: metadata.whatsapp_number ? "whatsapp" : "email",
+        consent_given_at:
+          metadata.whatsapp_number && metadata.whatsapp_consent
+            ? new Date().toISOString()
+            : null,
       });
 
       // Un compte confirmé sans profil (ex: whatsapp_number pris par un

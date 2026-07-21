@@ -27,14 +27,31 @@ export async function registerAction(
     email: formData.get("email"),
     password: formData.get("password"),
     whatsappNumber: formData.get("whatsappNumber"),
+    inviteCode: formData.get("inviteCode"),
   });
 
   if (!parsed.success) {
     return { error: parsed.error.issues[0]?.message ?? tValidation("genericForm") };
   }
 
-  const { fullName, email, password, whatsappNumber } = parsed.data;
+  const { fullName, email, password, whatsappNumber, inviteCode } = parsed.data;
+  const whatsappConsent = formData.get("whatsappConsent") === "on";
   const supabase = await createClient();
+
+  const { data: inviteOnlyConfig } = await supabase
+    .from("app_config")
+    .select("value")
+    .eq("key", "invite_only_mode")
+    .maybeSingle();
+
+  if (inviteOnlyConfig?.value === true) {
+    const { data: codeValid } = await supabase.rpc("consume_invite_code", {
+      p_code: inviteCode ?? "",
+    });
+    if (!codeValid) {
+      return { error: tActions("inviteCodeInvalid") };
+    }
+  }
 
   const requestHeaders = await headers();
   const host = requestHeaders.get("host");
@@ -44,7 +61,11 @@ export async function registerAction(
     email,
     password,
     options: {
-      data: { full_name: fullName, whatsapp_number: whatsappNumber },
+      data: {
+        full_name: fullName,
+        whatsapp_number: whatsappNumber ?? null,
+        whatsapp_consent: whatsappNumber ? whatsappConsent : false,
+      },
       emailRedirectTo: `${protocol}://${host}/auth/callback`,
     },
   });
@@ -64,7 +85,9 @@ export async function registerAction(
     const { error: profileError } = await supabase.from("profiles").insert({
       id: data.user.id,
       full_name: fullName,
-      whatsapp_number: whatsappNumber,
+      whatsapp_number: whatsappNumber ?? null,
+      notification_channel: whatsappNumber ? "whatsapp" : "email",
+      consent_given_at: whatsappNumber && whatsappConsent ? new Date().toISOString() : null,
     });
 
     if (profileError) {

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
+import { createClient } from "@/lib/supabase/client";
 
 declare global {
   interface Window {
@@ -11,6 +12,7 @@ declare global {
     ) => {
       dispose: () => void;
       executeCommand: (command: string, ...args: unknown[]) => void;
+      addEventListener: (event: string, handler: () => void) => void;
     };
   }
 }
@@ -20,9 +22,11 @@ const JITSI_DOMAIN = "meet.jit.si";
 export default function JitsiEmbed({
   roomName,
   displayName,
+  circleId,
 }: {
   roomName: string;
   displayName: string;
+  circleId: string;
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [status, setStatus] = useState<"loading" | "ready" | "error">("loading");
@@ -50,6 +54,15 @@ export default function JitsiEmbed({
         },
       });
 
+      // Marque la présence dès que l'utilisateur a effectivement rejoint la
+      // visio — sert de base au suivi des no-show (comptage seul pour
+      // l'instant, aucune pénalité automatique).
+      api.addEventListener("videoConferenceJoined", () => {
+        createClient()
+          .rpc("mark_attendance", { p_circle_id: circleId })
+          .then(() => {});
+      });
+
       setStatus("ready");
     }
 
@@ -68,7 +81,7 @@ export default function JitsiEmbed({
       cancelled = true;
       api?.dispose();
     };
-  }, [roomName, displayName]);
+  }, [roomName, displayName, circleId]);
 
   if (status === "error") {
     return (

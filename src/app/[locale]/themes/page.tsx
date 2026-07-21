@@ -36,7 +36,7 @@ export default async function ThemesPage({
 
   let themesQuery = supabase
     .from("themes")
-    .select("id, title, description, scheduled_at, capacity, status, category_id")
+    .select("id, title, description, scheduled_at, capacity, status, category_id, recurring_slot_id")
     .in("status", ["open", "confirmed"])
     .order("scheduled_at", { ascending: true });
 
@@ -133,8 +133,11 @@ export default async function ThemesPage({
                               <p className="text-sm text-neutral-400 break-words">
                                 {theme.description}
                               </p>
-                              <p className="mt-1 text-xs text-neutral-500">
-                                {formatDate(theme.scheduled_at, locale)}
+                              <p className="mt-1 flex items-center gap-2 text-xs text-neutral-500">
+                                <span>{formatDate(theme.scheduled_at, locale)}</span>
+                                {theme.recurring_slot_id && (
+                                  <span className="text-orange-400">{t("recurringBadge")}</span>
+                                )}
                               </p>
                             </div>
                           </div>

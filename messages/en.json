@@ -67,6 +67,9 @@
     "passwordHint": "8 characters minimum.",
     "whatsapp": "WhatsApp number",
     "whatsappHint": "To notify you as soon as your circle is complete.",
+    "whatsappConsent": "I agree to receive notifications via WhatsApp.",
+    "optional": "optional",
+    "inviteCode": "Invite code",
     "submit": "Create my account",
     "submitting": "Creating…",
     "alreadyRegistered": "Already registered?",
@@ -100,7 +103,8 @@
     "propose": "Propose a topic",
     "emptyCategory": "No topics here yet — be the first to propose one →",
     "noResults": "No topics match.",
-    "proposeOne": "Propose one"
+    "proposeOne": "Propose one",
+    "recurringBadge": "🔁 recurring"
   },
   "themeFilters": {
     "allCategories": "All categories",
@@ -182,6 +186,7 @@
     "unknownError": "unknown error",
     "resetPasswordFailed": "Unable to update the password. Request a new link.",
     "profileIncomplete": "Account created but profile incomplete: ",
-    "whatsappTaken": "This WhatsApp number is already linked to an account."
+    "whatsappTaken": "This WhatsApp number is already linked to an account.",
+    "inviteCodeInvalid": "Invalid, expired, or already used invite code."
   }
 }

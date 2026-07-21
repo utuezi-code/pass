@@ -52,7 +52,11 @@ export default async function CirclePage({
         </Link>
       </div>
       <div className="min-h-0 flex-1">
-        <JitsiEmbed roomName={roomName} displayName={profile?.full_name ?? t("guestName")} />
+        <JitsiEmbed
+          roomName={roomName}
+          displayName={profile?.full_name ?? t("guestName")}
+          circleId={id}
+        />
       </div>
     </div>
   );

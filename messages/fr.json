@@ -67,6 +67,9 @@
     "passwordHint": "8 caractères minimum.",
     "whatsapp": "Numéro WhatsApp",
     "whatsappHint": "Pour vous prévenir dès que votre cercle est complet.",
+    "whatsappConsent": "J'accepte de recevoir des notifications par WhatsApp.",
+    "optional": "optionnel",
+    "inviteCode": "Code d'invitation",
     "submit": "Créer mon compte",
     "submitting": "Création…",
     "alreadyRegistered": "Déjà inscrit ?",
@@ -100,7 +103,8 @@
     "propose": "Proposer un thème",
     "emptyCategory": "Aucun thème ici pour l'instant — soyez le premier à en proposer un →",
     "noResults": "Aucun thème ne correspond.",
-    "proposeOne": "Proposez-en un"
+    "proposeOne": "Proposez-en un",
+    "recurringBadge": "🔁 récurrent"
   },
   "themeFilters": {
     "allCategories": "Toutes les catégories",
@@ -182,6 +186,7 @@
     "unknownError": "erreur inconnue",
     "resetPasswordFailed": "Impossible de mettre à jour le mot de passe. Redemandez un lien.",
     "profileIncomplete": "Compte créé mais profil incomplet : ",
-    "whatsappTaken": "Ce numéro WhatsApp est déjà associé à un compte."
+    "whatsappTaken": "Ce numéro WhatsApp est déjà associé à un compte.",
+    "inviteCodeInvalid": "Code d'invitation invalide, expiré ou déjà utilisé."
   }
 }

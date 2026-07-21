@@ -13,7 +13,15 @@ export function createRegisterSchema(t: T) {
     fullName: z.string().trim().min(2, t("nameTooShort")).max(100),
     email: z.email(t("emailInvalid")),
     password: z.string().min(8, t("passwordTooShort")),
-    whatsappNumber: e164PhoneSchema(t),
+    whatsappNumber: z
+      .union([e164PhoneSchema(t), z.literal("")])
+      .optional()
+      .transform((v) => (v ? v : undefined)),
+    inviteCode: z
+      .string()
+      .trim()
+      .optional()
+      .transform((v) => (v ? v : undefined)),
   });
 }
 export type RegisterInput = z.infer<ReturnType<typeof createRegisterSchema>>;
