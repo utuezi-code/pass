@@ -15,6 +15,7 @@ export type Database = {
           full_name: string;
           whatsapp_number: string;
           whatsapp_verified: boolean;
+          suspended: boolean;
           created_at: string;
         };
         Insert: {
@@ -22,6 +23,7 @@ export type Database = {
           full_name: string;
           whatsapp_number: string;
           whatsapp_verified?: boolean;
+          suspended?: boolean;
           created_at?: string;
         };
         Update: Partial<Database["public"]["Tables"]["profiles"]["Insert"]>;
@@ -128,6 +130,13 @@ export type Database = {
             referencedRelation: "circles";
             referencedColumns: ["id"];
           },
+          {
+            foreignKeyName: "registrations_user_id_fkey";
+            columns: ["user_id"];
+            isOneToOne: false;
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          },
         ];
       };
       theme_counts: {
@@ -139,6 +148,41 @@ export type Database = {
         Insert: Partial<Database["public"]["Tables"]["theme_counts"]["Row"]>;
         Update: Partial<Database["public"]["Tables"]["theme_counts"]["Row"]>;
         Relationships: Relationship[];
+      };
+      reports: {
+        Row: {
+          id: string;
+          reporter_id: string;
+          reported_id: string;
+          circle_id: string | null;
+          reason: string;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          reporter_id: string;
+          reported_id: string;
+          circle_id?: string | null;
+          reason: string;
+          created_at?: string;
+        };
+        Update: Partial<Database["public"]["Tables"]["reports"]["Insert"]>;
+        Relationships: [
+          {
+            foreignKeyName: "reports_reported_id_fkey";
+            columns: ["reported_id"];
+            isOneToOne: false;
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "reports_circle_id_fkey";
+            columns: ["circle_id"];
+            isOneToOne: false;
+            referencedRelation: "circles";
+            referencedColumns: ["id"];
+          },
+        ];
       };
     };
     Views: Record<string, never>;

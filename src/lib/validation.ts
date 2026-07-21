@@ -37,3 +37,10 @@ export const createThemeSchema = z.object({
     .refine((v) => new Date(v).getTime() > Date.now(), "La date doit être dans le futur"),
 });
 export type CreateThemeInput = z.infer<typeof createThemeSchema>;
+
+export const reportUserSchema = z.object({
+  reportedId: z.uuid(),
+  circleId: z.uuid(),
+  reason: z.string().trim().min(5, "Décrivez un peu plus la raison").max(500),
+});
+export type ReportUserInput = z.infer<typeof reportUserSchema>;

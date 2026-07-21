@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { describeProfileInsertError } from "@/lib/profile-errors";
 
 export async function GET(request: NextRequest) {
   const { searchParams, origin } = new URL(request.url);
@@ -25,11 +26,21 @@ export async function GET(request: NextRequest) {
         };
 
         if (metadata.full_name && metadata.whatsapp_number) {
-          await supabase.from("profiles").insert({
+          const { error: profileError } = await supabase.from("profiles").insert({
             id: data.user.id,
             full_name: metadata.full_name,
             whatsapp_number: metadata.whatsapp_number,
           });
+
+          if (profileError) {
+            const message = describeProfileInsertError(profileError);
+            if (message) {
+              await supabase.auth.signOut();
+              const conflictUrl = new URL(origin);
+              conflictUrl.searchParams.set("error_description", message);
+              return NextResponse.redirect(conflictUrl);
+            }
+          }
         }
       }
 

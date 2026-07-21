@@ -142,6 +142,7 @@ export default async function ThemesPage({
                             themeId={theme.id}
                             alreadyJoined={!!registration}
                             matched={!!registration?.circle_id}
+                            circleId={registration?.circle_id}
                             isAuthenticated={!!user}
                           />
                         </li>

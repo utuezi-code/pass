@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { headers } from "next/headers";
 import { registerSchema } from "@/lib/validation";
 import { createClient } from "@/lib/supabase/server";
+import { describeProfileInsertError } from "@/lib/profile-errors";
 
 export type RegisterState = {
   error?: string;
@@ -59,8 +60,11 @@ export async function registerAction(
       whatsapp_number: whatsappNumber,
     });
 
-    if (profileError && profileError.code !== "23505") {
-      return { error: "Compte créé mais profil incomplet : " + profileError.message };
+    if (profileError) {
+      const message = describeProfileInsertError(profileError);
+      if (message) {
+        return { error: message };
+      }
     }
 
     redirect("/themes");

@@ -44,6 +44,9 @@ export async function loginAction(
     };
 
     if (metadata.full_name && metadata.whatsapp_number) {
+      // Best-effort : un conflit ici (numéro déjà pris entre-temps par un
+      // autre compte) laisse simplement le profil incomplet plutôt que de
+      // faire échouer une connexion par ailleurs valide.
       await supabase.from("profiles").insert({
         id: data.user.id,
         full_name: metadata.full_name,

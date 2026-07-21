@@ -9,23 +9,26 @@ export default function JoinThemeButton({
   themeId,
   alreadyJoined,
   matched,
+  circleId,
   isAuthenticated,
 }: {
   themeId: string;
   alreadyJoined: boolean;
   matched: boolean;
+  circleId?: string | null;
   isAuthenticated: boolean;
 }) {
   const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [joined, setJoined] = useState(alreadyJoined);
+  const [matchedCircleId, setMatchedCircleId] = useState<string | null>(circleId ?? null);
   const router = useRouter();
 
   if (matched) {
     return (
       <button
         type="button"
-        onClick={() => router.push("/dashboard")}
+        onClick={() => router.push(matchedCircleId ? `/circle/${matchedCircleId}` : "/dashboard")}
         className="w-full whitespace-nowrap rounded-full bg-gradient-to-r from-orange-500 to-red-500 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-orange-900/30 transition hover:shadow-orange-900/50 sm:w-auto"
       >
         Voir mon cercle
@@ -64,14 +67,19 @@ export default function JoinThemeButton({
     setIsPending(false);
 
     if (rpcError) {
-      setError("Impossible de rejoindre pour le moment.");
+      setError(
+        rpcError.message.includes("account_suspended")
+          ? "Votre compte a été suspendu suite à des signalements."
+          : "Impossible de rejoindre pour le moment.",
+      );
       return;
     }
 
     setJoined(true);
 
-    if (data?.status === "matched") {
-      router.push("/dashboard");
+    if (data?.status === "matched" && data.circle_id) {
+      setMatchedCircleId(data.circle_id);
+      router.push(`/circle/${data.circle_id}`);
     } else {
       router.refresh();
     }
